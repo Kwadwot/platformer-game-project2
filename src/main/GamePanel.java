@@ -9,11 +9,11 @@ import java.awt.*;
 public class GamePanel extends JPanel {
 
     private MouseInputs mouseInputs;
-    private int deltaX, deltaY = 0;
+    private int deltaX = 100, deltaY = 100;
 
     public GamePanel() {
 
-        mouseInputs = new MouseInputs();
+        mouseInputs = new MouseInputs(this);
         addKeyListener(new KeyboardInputs(this));
         addMouseListener(mouseInputs);
         addMouseMotionListener(mouseInputs);
@@ -21,15 +21,23 @@ public class GamePanel extends JPanel {
 
     public void changeDeltaX(int val) {
         this.deltaX += val;
+        repaint();
     }
 
     public void changeDeltaY(int val) {
         this.deltaY += val;
+        repaint();
+    }
+
+    public void setRectPos(int x, int y) {
+        this.deltaX = x;
+        this.deltaY = y;
+        repaint();
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        g.fillRect(100 + deltaX, 100 + deltaY, 200, 50);
+        g.fillRect(deltaX, deltaY, 200, 50);
     }
 }
